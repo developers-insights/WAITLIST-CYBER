@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Cyberfalu — Acceso anticipado</title>
+<script src="./vendor/react.js"></script>
+<script src="./vendor/react-dom.js"></script>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;display=swap">
+<style>
+  body { margin: 0; background: #05070a; }
+  input::placeholder { color: #5c6f66; }
+  input:focus { outline: none; border-color: #39ff88 !important; }
+  button { border: none; }
+  .cf-fill { transition: width 0.45s cubic-bezier(0.2, 0.8, 0.2, 1); }
+  .cf-opt { transition: background 0.15s, border-color 0.15s, transform 0.1s; }
+  .cf-opt:hover { border-color: #39ff88 !important; transform: translateX(2px); }
+  @keyframes cf-blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+  .cf-cursor { animation: cf-blink 1s step-end infinite; }
+</style>
+</helmet>
+
+<div style="width: 100%; min-height: 100vh; box-sizing: border-box; background: #05070a; color: #e6f1ea; font-family: 'Inter', sans-serif; display: flex; flex-direction: column; align-items: center;">
+
+  <div style="width: 100%; box-sizing: border-box; padding: 16px 32px; border-bottom: 1px solid rgba(57,255,136,0.22); font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #39ff88; letter-spacing: 0.4px; display: flex; justify-content: space-between;">
+    <span>cyberfalu@academia:~$ <span style="opacity: 0.55">whoami</span></span>
+    <span style="opacity: 0.55">academia_cyberfalu.exe</span>
+  </div>
+
+  <sc-if value="{{isLanding}}" hint-placeholder-val="{{true}}">
+  <div style="width: 100%; max-width: 760px; box-sizing: border-box; padding: 110px 24px 90px;">
+    <div style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #39ff88; margin-bottom: 18px; letter-spacing: 1px;">[ ACADEMIA CYBERFALU ]</div>
+    <h1 style="margin: 0 0 22px; font-size: 52px; line-height: 1.08; font-family: 'JetBrains Mono', monospace; font-weight: 700; color: #f2fbf5;">Convertite en un <span style="color: #39ff88;">hacker experto</span></h1>
+    <p style="margin: 0 0 40px; font-size: 19px; line-height: 1.6; color: #9db3a8; max-width: 600px;">Desbloqueá vulnerabilidades que otros no pueden ver. Estamos armando la comunidad — contanos qué buscás y quedás primero en la lista de acceso anticipado.</p>
+    <button onClick="{{goSurvey}}" style="cursor: pointer; border: 1px solid #39ff88; background: #39ff88; color: #04140a; font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: 16px; padding: 17px 34px; border-radius: 4px; box-shadow: 0 0 26px rgba(57,255,136,0.35);">&gt; Recibir acceso anticipado_</button>
+  </div>
+  </sc-if>
+
+  <sc-if value="{{isSurvey}}" hint-placeholder-val="{{true}}">
+  <div style="width: 100%; max-width: 640px; box-sizing: border-box; padding: 64px 24px 100px;">
+
+    <div style="margin-bottom: 44px;">
+      <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #6b8177; letter-spacing: 0.5px;">
+        <span>PASO {{stepNumber}} / {{stepTotal}}</span>
+        <span style="color: #39ff88;">{{progressPct}}% completado</span>
+      </div>
+      <div style="width: 100%; height: 6px; background: rgba(57,255,136,0.12); border-radius: 3px; overflow: hidden;">
+        <div class="cf-fill" style="{{progressBarStyle}}"></div>
+      </div>
+    </div>
+
+    <sc-if value="{{isContactStep}}" hint-placeholder-val="{{true}}">
+      <div style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #39ff88; margin-bottom: 10px; letter-spacing: 1px;">[ ACCESO ANTICIPADO ]</div>
+      <h2 style="margin: 0 0 10px; font-size: 28px; font-family: 'JetBrains Mono', monospace; color: #f2fbf5; line-height: 1.3;">Comencemos por tu nombre<span class="cf-cursor">_</span></h2>
+      <p style="margin: 0 0 32px; color: #9db3a8; font-size: 15px; line-height: 1.5;">Así te avisamos por WhatsApp y por email cuando se abra el acceso.</p>
+
+      <div style="display: flex; flex-direction: column; gap: 14px; margin-bottom: 30px;">
+        <input type="text" placeholder="Tu nombre" value="{{name}}" onInput="{{setName}}" style="background: #0b0f0d; border: 1px solid rgba(57,255,136,0.3); border-radius: 4px; padding: 15px 16px; color: #e6f1ea; font-family: 'Inter', sans-serif; font-size: 15px; box-sizing: border-box;">
+        <input type="email" placeholder="Tu email" value="{{email}}" onInput="{{setEmail}}" style="background: #0b0f0d; border: 1px solid rgba(57,255,136,0.3); border-radius: 4px; padding: 15px 16px; color: #e6f1ea; font-family: 'Inter', sans-serif; font-size: 15px; box-sizing: border-box;">
+        <input type="tel" placeholder="Tu WhatsApp (con código de país)" value="{{phone}}" onInput="{{setPhone}}" style="background: #0b0f0d; border: 1px solid rgba(57,255,136,0.3); border-radius: 4px; padding: 15px 16px; color: #e6f1ea; font-family: 'Inter', sans-serif; font-size: 15px; box-sizing: border-box;">
+      </div>
+
+      <button onClick="{{goNext}}" style="{{contactButtonStyle}}">&gt; Siguiente_</button>
+    </sc-if>
+
+    <sc-if value="{{isQuestionStep}}" hint-placeholder-val="{{true}}">
+      <div style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #39ff88; margin-bottom: 10px; letter-spacing: 1px;">[ PREGUNTA {{questionNumber}} / {{questionTotal}} ]</div>
+      <h2 style="margin: 0 0 28px; font-size: 24px; font-family: 'JetBrains Mono', monospace; color: #f2fbf5; line-height: 1.4;">{{currentQuestion.title}}</h2>
+
+      <sc-if value="{{currentQuestion.isChoice}}" hint-placeholder-val="{{true}}">
+      <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px;">
+        <sc-for list="{{currentQuestion.options}}" as="opt" hint-placeholder-count="5">
+          <button class="cf-opt" onClick="{{opt.pick}}" style="{{opt.style}}">
+            <span style="opacity: 0.5; margin-right: 10px;">&gt;</span>{{opt.label}}
+          </button>
+        </sc-for>
+      </div>
+      </sc-if>
+
+      <sc-if value="{{currentQuestion.isOpen}}" hint-placeholder-val="{{true}}">
+      <div style="display: flex; flex-direction: column; gap: 14px; margin-bottom: 24px;">
+        <div style="position: relative;">
+          <span style="position: absolute; left: 16px; top: 50%; transform: translateY(-50%); font-family: 'JetBrains Mono', monospace; color: #39ff88; font-size: 15px;">USD $</span>
+          <input type="number" min="0" step="1" inputmode="numeric" placeholder="Ej: 40" value="{{priceValue}}" onInput="{{setPrice}}" style="width: 100%; background: #0b0f0d; border: 1px solid rgba(57,255,136,0.3); border-radius: 4px; padding: 15px 16px 15px 62px; color: #e6f1ea; font-family: 'JetBrains Mono', monospace; font-size: 17px; box-sizing: border-box;">
+        </div>
+        <span style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #6b8177;">/ mes — poné el número con el que vos te sentirías cómodo pagando, no hay una opción correcta.</span>
+        <button onClick="{{submitPrice}}" style="{{priceButtonStyle}} align-self: flex-start;">&gt; Finalizar_</button>
+      </div>
+      </sc-if>
+
+      <button onClick="{{goBack}}" style="cursor: pointer; background: transparent; color: #6b8177; font-family: 'JetBrains Mono', monospace; font-size: 13px; padding: 8px 0;">&lt; atrás</button>
+    </sc-if>
+
+  </div>
+  </sc-if>
+
+  <sc-if value="{{isThanks}}" hint-placeholder-val="{{true}}">
+  <div style="width: 100%; max-width: 640px; box-sizing: border-box; padding: 150px 24px 120px;">
+    <div style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #39ff88; margin-bottom: 18px; letter-spacing: 1px;">[ ACCESO REGISTRADO — 100% ]</div>
+    <h2 style="margin: 0 0 18px; font-size: 32px; font-family: 'JetBrains Mono', monospace; color: #f2fbf5; line-height: 1.25;">Listo{{nameSuffix}}. Ya quedaste en la lista de acceso anticipado.</h2>
+    <p style="margin: 0 0 36px; color: #9db3a8; font-size: 16px; line-height: 1.6;">Vas a recibir tu acceso anticipado exclusivo por WhatsApp y por email, antes de que se abra al público.</p>
+    <div style="display: inline-flex; align-items: center; gap: 10px; border: 1px solid rgba(57,255,136,0.35); border-radius: 4px; padding: 14px 20px; font-family: 'JetBrains Mono', monospace; font-size: 14px; color: #39ff88;">
+      <span>&gt; status: acceso_anticipado_confirmado</span><span class="cf-cursor">_</span>
+    </div>
+  </div>
+  </sc-if>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":900}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const state = this.state || {};
+    const screenStep = state.screen || 'landing';
+    const name = state.name || '';
+    const email = state.email || '';
+    const phone = state.phone || '';
+    const answers = state.answers || {};
+    const idx = state.step || 0;
+
+    const questionDefs = [
+      {
+        id: 'situacion',
+        title: '¿Cuál es tu situación actual?',
+        options: ['Trabajo en IT/tecnología y quiero especializarme en ciberseguridad', 'Trabajo en otra área y quiero un cambio de carrera', 'Soy estudiante', 'Ya trabajo en ciberseguridad y quiero profundizar', 'Otro']
+      },
+      {
+        id: 'motivacion',
+        title: '¿Qué es lo que más te motiva a entrar en una comunidad de hacking?',
+        options: ['Conseguir un trabajo mejor pago / cambiar de carrera', 'Ganar plata con bug bounties o freelance', 'Curiosidad pura, me apasiona el tema', 'Proteger mi propio negocio o proyectos', 'Sumar una certificación que valga en el mercado', 'Pertenecer a una comunidad de gente con el mismo interés']
+      },
+      {
+        id: 'freno',
+        title: '¿Qué te frenó hasta ahora para meterte en esto en serio?',
+        options: ['No sé por dónde empezar', 'Probé cursos sueltos pero eran dispersos', 'Es muy caro lo que encontré', 'No tengo con quién practicar o resolver dudas', 'Nunca tuve tiempo']
+      },
+      {
+        id: 'valor',
+        title: 'Si tuvieras acceso a la academia, ¿qué te haría decir "esto vale la pena"?',
+        options: ['Acceso ilimitado a cursos actualizados', 'Comunidad activa para resolver dudas', 'Laboratorios y retos prácticos (CTFs)', 'Mentoría o clases en vivo', 'Certificado al finalizar']
+      },
+      {
+        id: 'precio',
+        type: 'open',
+        title: '¿Cuánto estarías dispuesto a invertir por mes en aprender sobre hacking, estar en una comunidad y tener llamadas grupales de manera constante para que te vayas actualizando?'
+      }
+    ];
+
+    // step 0 = contact form, steps 1..5 = questionDefs[0..4], step 6 = thanks
+    const totalSteps = questionDefs.length + 1; // contact + questions
+    const isThanks = idx >= totalSteps;
+    const isContactStep = !isThanks && idx === 0;
+    const isQuestionStep = !isThanks && idx > 0;
+    const qDef = isQuestionStep ? questionDefs[idx - 1] : null;
+
+    const baseOptStyle = "cursor:pointer;width:100%;text-align:left;border:1px solid rgba(57,255,136,0.3);background:#0b0f0d;color:#cfdecf;font-family:'Inter',sans-serif;font-size:15px;padding:14px 16px;border-radius:4px;box-sizing:border-box;";
+    const selectedOptStyle = "cursor:pointer;width:100%;text-align:left;border:1px solid #39ff88;background:rgba(57,255,136,0.12);color:#f2fbf5;font-weight:600;font-family:'Inter',sans-serif;font-size:15px;padding:14px 16px;border-radius:4px;box-sizing:border-box;box-shadow:0 0 14px rgba(57,255,136,0.25);";
+
+    const isOpenQuestion = qDef && qDef.type === 'open';
+
+    const currentQuestion = qDef ? {
+      title: qDef.title,
+      isChoice: !isOpenQuestion,
+      isOpen: !!isOpenQuestion,
+      options: isOpenQuestion ? [] : qDef.options.map((label) => ({
+        label: label,
+        style: answers[qDef.id] === label ? selectedOptStyle : baseOptStyle,
+        pick: () => this.setState({ answers: { ...(this.state.answers || {}), [qDef.id]: label }, step: idx + 1 })
+      }))
+    } : null;
+
+    const priceValue = answers.precio || '';
+    const priceValid = String(priceValue).trim().length > 0;
+    const priceButtonStyle = priceValid
+      ? "cursor:pointer;border:1px solid #39ff88;background:#39ff88;color:#04140a;font-family:'JetBrains Mono',monospace;font-weight:700;font-size:15px;padding:14px 28px;border-radius:4px;box-shadow:0 0 22px rgba(57,255,136,0.3);"
+      : "cursor:not-allowed;border:1px solid rgba(57,255,136,0.2);background:transparent;color:#4d5f55;font-family:'JetBrains Mono',monospace;font-weight:700;font-size:15px;padding:14px 28px;border-radius:4px;";
+
+    const contactValid = name.trim().length > 0 && email.trim().length > 0 && phone.trim().length > 0;
+    const contactButtonStyle = contactValid
+      ? "cursor:pointer;border:1px solid #39ff88;background:#39ff88;color:#04140a;font-family:'JetBrains Mono',monospace;font-weight:700;font-size:15px;padding:15px 30px;border-radius:4px;box-shadow:0 0 22px rgba(57,255,136,0.3);"
+      : "cursor:not-allowed;border:1px solid rgba(57,255,136,0.2);background:transparent;color:#4d5f55;font-family:'JetBrains Mono',monospace;font-weight:700;font-size:15px;padding:15px 30px;border-radius:4px;";
+
+    const progressPct = Math.round((idx / totalSteps) * 100);
+    const progressBarStyle = "height:100%;border-radius:3px;background:#39ff88;box-shadow:0 0 10px rgba(57,255,136,0.6);width:" + progressPct + "%;";
+
+    return {
+      isLanding: screenStep === 'landing',
+      isSurvey: screenStep === 'survey',
+      isThanks: screenStep === 'survey' && isThanks,
+      isContactStep,
+      isQuestionStep,
+      currentQuestion,
+      priceValue,
+      priceButtonStyle,
+      name, email, phone,
+      stepNumber: idx + 1,
+      stepTotal: totalSteps,
+      questionNumber: idx,
+      questionTotal: questionDefs.length,
+      progressPct,
+      progressBarStyle,
+      contactButtonStyle,
+      nameSuffix: name.trim() ? ', ' + name.trim() : '',
+      goSurvey: () => this.setState({ screen: 'survey', step: 0 }),
+      goNext: () => { if (contactValid) this.setState({ step: idx + 1 }); },
+      goBack: () => this.setState({ step: Math.max(0, idx - 1) }),
+      setName: (e) => this.setState({ name: e.target.value }),
+      setEmail: (e) => this.setState({ email: e.target.value }),
+      setPhone: (e) => this.setState({ phone: e.target.value }),
+      setPrice: (e) => this.setState({ answers: { ...(this.state.answers || {}), precio: e.target.value } }),
+      submitPrice: () => { if (priceValid) this.setState({ step: idx + 1 }); }
+    };
+  }
+}
+</script>
+</body>
+</html>
